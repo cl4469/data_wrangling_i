@@ -27,3 +27,31 @@ litters_df_abs=
  janitor::clean_names(litters_df_abs)
 
 ```
+
+import Pups dataset
+```{r}
+pups_df=
+  read_csv("data/FAS_pups.csv")
+
+pups_df=
+  janitor::clean_names(pups_df)
+```
+
+###look at data
+```{r}
+litters_df
+
+head(litters_df)
+tail(litters_df)
+````
+
+you can use views
+```{r,rval=FALSE}
+view(litters_df)
+````
+
+look at a data summary
+```{r,rval=FALSE}
+str(litters_df)
+skimr::skim(litters_df)
+````
