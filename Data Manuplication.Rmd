@@ -1,0 +1,90 @@
+---
+title: "DAta MAnu"
+author: "people"
+date: "2023-09-21"
+output: github_document
+---
+
+```{R}
+library(tidyverse)
+```
+
+```{r setup, include=FALSE}
+litters_Df_cleaned=
+  read_csv("data/FAS_litters.csv")
+
+litters_df=
+ janitor::clean_names(litters_Df_cleaned)
+
+pups_df=
+  read_csv("data/FAS_pups.csv")
+
+pups_df=
+  janitor::clean_names(pups_df)
+  
+```
+
+##'select'
+
+```{r}
+select(litters_df,group,litter_number,gd0_weight)
+select(litters_df,gd0_weight)
+select(litters_df,group,gd0_weight:gd_of_birth)
+select(litters_df,group,starts_with("pups"))
+select(litters_df,-litter_number)
+select(litters_df,-starts_with("gd"))
+select(litters_df,group,litter_id=litter_number)
+select(litters_df,group,litter_id=litter_number,everything())
+select(litters_df,gd0_weight,everything())
+
+```
+
+```{r}
+rename(litters_df,litter_id=litter_number)
+rename(litters_df, GROUP = group, LiTtEr_NuMbEr = litter_number)
+relocate(litters_df,litter_number)
+```
+
+## 'select' over 'pull'
+```{r}
+select (litters_df,group)
+pull(litters_df, group)
+```
+
+##'filter'
+get red of rows using'filter()'
+
+```{r}
+filter(litters_df,group=="Con7")
+filter(litters_df,group=="Mod8")
+filter(litters_df,group!="Con7")
+filter(litters_df,gd0_weight>20)
+filter(litters_df,group=="Con7"|group=="Con8")
+filter(litters_df,!(group=="con7"))
+filter(litters_df,group %in% c("Con7","Con8"))
+```
+
+what about missing rows
+```{r}
+drop_na(litters_df)
+drop_na(litters_df, gd0_weight)
+```
+
+##'mutatte'
+this is used to add or change variables
+
+```{r}
+mutate(litters_df,wt_gain=gd18_weight-gd0_weight)
+
+mutate(litters_df,group=str_to_lower(group))
+
+mutate(
+  litters_df,
+  wt_gain=gd18_weight-gd0_weight,
+  group=str_to_lower(group)
+)
+```
+
+
+
+
